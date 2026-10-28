@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio Personalizado com Foto | Programador</title>
+    <style>
+        :root {
+            --bg-body: #0a0c10;
+            --bg-card: #14171f;
+            --primary: #10b981; /* Verde esmeralda moderno */
+            --primary-glow: rgba(16, 185, 129, 0.25);
+            --text-main: #f3f4f6;
+            --text-sub: #9ca3af;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Nav */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 8%;
+            background: rgba(10, 12, 16, 0.8);
+            backdrop-filter: blur(12px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-sub);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section com Foto */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8rem 8% 4rem;
+            gap: 4rem;
+        }
+
+        .hero-text {
+              margin-left: 250px;
+            flex: 1;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--primary-glow);
+            color: var(--primary);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--primary);
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .hero-text p {
+            color: var(--text-sub);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 540px;
+        }
+
+        /* Container da Foto de Perfil */
+        .hero-avatar-container {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .avatar-glow {
+            width: 320px;
+            height: 320px;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            background:white;
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            filter: blur(30px);
+            opacity: 0.5;
+            z-index: 1;
+          
+        }
+
+        .avatar-img {
+            width: 320px;
+            height: 320px;
+     
+            object-fit: cover;
+            border-radius: 24px;
+            position: relative;
+            z-index: 2;
+            border: 2px solid var(--border);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes morph {
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            100% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+        }
+
+        /* Botões */
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #000;
+            padding: 0.8rem 1.8rem;
+            border-radius: 10px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 20px var(--primary-glow);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 0.8rem 1.8rem;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Seção Geral */
+        section {
+            padding: 5rem 8%;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            height: 1px;
+            background: var(--border);
+            flex: 1;
+        }
+
+        /* Grade de Projetos */
+        .grid-projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card-project {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .card-project:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .project-thumb {
+            width: 100%;
+            height: 180px;
+            background: #1e2330;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-sub);
+            font-size: 0.9rem;
+        }
+
+        .project-body {
+            padding: 1.5rem;
+        }
+
+        .project-body h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .project-body p {
+            color: var(--text-sub);
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: var(--primary);
+        }
+
+        /* Rodapé / Contato */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 4rem 8%;
+            text-align: center;
+        }
+
+        /* Responsivo para Celulares */
+        @media (max-width: 900px) {
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+                padding-top: 6rem;
+                gap: 2rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .btn-group {
+                justify-content: center;
+            }
+
+            .avatar-img, .avatar-glow {
+                width: 220px;
+                height: 220px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navegação -->
+    <nav>
+        <div class="logo">&lt;Manhiça Ali Antonio&gt;</div>
+        <ul class="nav-links">
+            <li><a href="#about">Sobre</a></li>
+            <li><a href="#projects">Projetos</a></li>
+            <li><a href="#contact">Contato</a></li>
+        </ul>
+    </nav>
+
+    <!-- Apresentação Principal (Hero) com Foto -->
+    <section class="hero">
+
+                <!-- ESPAÇO PARA SUA FOTO -->
+        <div class="hero-avatar-container">
+            <div class="avatar-glow"></div>
+            <!-- Substitua a URL abaixo pela sua foto (ex: "sua-foto.jpg") -->
+            <img class="avatar-img" src="mah-removebg-preview.png" alt="Foto de Perfil do Programador">
+        </div>
+
+        <div class="hero-text">
+            <span class="badge">Disponível para novos projetos</span>
+            <h1>Olá, sou <span style="color: var(--primary);">Manhiça Ali Antonio</span>.</h1>
+            <p>Desenvolvedor Front-End especializado em criar paginas web performáticas, responsivas e visualmente marcantes.</p>
+            <div class="btn-group">
+                <a href="#projects" class="btn-primary">Ver Projetos</a>
+                <a href="#contact" class="btn-secondary">Contato</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Projetos -->
+    <section id="projects">
+        <h2 class="section-title">Projetos Selecionados</h2>
+        <div class="grid-projects">
+            <!-- Card 1 -->
+            <div class="card-project">
+                <div class="project-thumb">Preview do Projeto 1</div>
+                <div class="project-body">
+                    <div class="tags">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">JS</span>
+                    </div>
+                    <h3>NacalaVerde</h3>
+                    <p>Sistema participativo para monitoramento e relatório ambiental com mapa e gráficos.</p>
+                    <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;">Acessar Projeto &rarr;</a>
+                </div>
+            </div>
+
+
+            <!-- Card 3 -->
+            <div class="card-project">
+                <div class="project-thumb">Preview do Projeto 2</div>
+                <div class="project-body">
+                    <div class="tags">
+                        <span class="tag">Front-End</span>
+                        <span class="tag">Landing Page</span>
+                    </div>
+                    <h3>Central Business Nacala</h3>
+                    <p>Design moderno para apresentação corporativa e serviços integrados.</p>
+                    <a href=" https://manuelabdullatifo2.github.io/CBN/" style="color: var(--primary); text-decoration: none; font-weight: 600;">Acessar Projeto &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer id="contact">
+        <h2 style="margin-bottom: 1rem;">Vamos conversar?</h2>
+        <p style="color: var(--text-sub); margin-bottom: 2rem;">Mande uma mensagem para discutirmos seu próximo projeto.</p>
+        <a href="mailto:manhiçaaliantonio@gmail.com" class="btn-primary" style="display: inline-block;">Enviar E-mail</a>
+        <a href="https://wa.me/874449868" target="_blank" class="btn-primary" style="display: inline-block;">fale comigo pelo whatsapp</a>
+    </footer>
+
+</body>
+</html>
